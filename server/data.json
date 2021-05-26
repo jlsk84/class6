@@ -1,3 +1,18 @@
 {
-    "users":[]
+  "users": [
+    {
+      "name": "Jagan",
+      "email": "Jagan@Jagan.com",
+      "mobile": "234234234",
+      "course": "English",
+      "id": 1
+    },
+    {
+      "name": "Jagan2",
+      "email": "jagan@2.com",
+      "mobile": "35645645",
+      "course": "Hindi",
+      "id": 2
+    }
+  ]
 }

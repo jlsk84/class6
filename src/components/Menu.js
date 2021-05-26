@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Menu(){
+export default function Menu({children}){
+    console.log("children is ", children);
     return(
-        <nav className="navbar navbar-expand-md navbar-dark bg-secondary sticky-top">
+        <React.Fragment>
+            <nav className="navbar navbar-expand-md navbar-dark bg-secondary sticky-top">
             <div className="container">
                 <Link to="/" className="navbar-brand">React CRUD</Link>
                 <div className="collapse navbar-collapse" id="menu">
@@ -18,5 +20,9 @@ export default function Menu(){
                 </div>
             </div>
         </nav>
+        <div>
+            { children }
+        </div>
+        </React.Fragment>
     )
 }

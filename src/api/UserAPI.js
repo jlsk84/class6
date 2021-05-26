@@ -15,12 +15,12 @@ export const UserAPI = {
         return axiosInstance.request({
             method: "GET",
             url: `/users/${userId}`
-        });
+        })
     },
     create: function (user){
         return axiosInstance.request({
             method: "POST",
-            URL: `/users`,
+            url: `/users`,
             data: user
         })
     },

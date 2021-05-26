@@ -1,14 +1,6 @@
 import React, { Component } from "react";
-import { UserAPI } from "../api/UserAPI";
-import UserProvider, { GlobalState } from "../GlobalState";
 
 export default class Create extends Component{
-    /**
-     * Create static reference before the constructor
-     * 
-     */
-    //static context = GlobalState;
-
     constructor(props){
         super(props);
         this.name = React.createRef();
@@ -16,10 +8,6 @@ export default class Create extends Component{
         this.mobile = React.createRef();
         this.course = React.createRef();
         this.submitHandler = this.submitHandler.bind(this);
-        this.state = {
-            userData: {}
-        }
-        console.log(this.context)
     }
 
     submitHandler(e){
@@ -30,10 +18,13 @@ export default class Create extends Component{
             mobile: this.mobile.current.value,
             course: this.course.current.value
         };
-        console.log("new data ", data);
-        this.setState({
-            userData: data
-        })
+        console.log("create new ", data);
+        // store the data
+        const res = this.props.userAPI.create(data);
+        res.then(res =>{
+            alert("Successfully created");
+            window.location.href = "/";
+        }).catch(err => console.log(err));
     }
 
     render(){
@@ -44,13 +35,7 @@ export default class Create extends Component{
                         <h3 className="display-3 text-center">Create new user</h3>
                     </div>
                 </div>
-                <GlobalState.Consumer>
-                    {
-                        value => {
-                            console.log('consumer create ', value.UserAPI);
-                            
-                            return (
-                                <div className="row">
+                <div className="row">
                     <div className="col-md-6 offset-md-3">
                         <div className="card">
                             <div className="card-body">
@@ -79,10 +64,6 @@ export default class Create extends Component{
                         </div>
                     </div>
                 </div>
-                            )
-                        }
-                    }
-                </GlobalState.Consumer>
             </div>
         );
     }
