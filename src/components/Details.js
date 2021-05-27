@@ -6,7 +6,8 @@ export default class Details extends Component{
         this.state = {
             id: this.props.match.params.id,
             user: ''
-        }
+        };
+        this.deleteHandler = this.deleteHandler.bind(this);
     }
 
     componentDidMount(){
@@ -18,6 +19,19 @@ export default class Details extends Component{
                 user: res.data
             })
         }).catch(err => console.log(err.message));
+    }
+
+    deleteHandler(){
+        if (window.confirm("Are you sure to delete a user Info?")){
+            // if true implement deletion
+            const output = this.props.userAPI.delete(this.state.id);
+            output.then(res => {
+                alert("Delete successful");
+                this.props.history.push("/");
+            }).catch(err => console.log(err.message));
+        } else{
+            return false;
+        }
     }
 
     render(){
@@ -54,7 +68,7 @@ export default class Details extends Component{
                             </div>
                             <div className="card-footer">
                                 <Link to={`/update/${id}`} className="btn btn-primary btn-sm">Edit</Link>
-                                <button className="btn btn-danger btn-sm float-end">Delete</button>
+                                <button onClick={this.deleteHandler} className="btn btn-danger btn-sm float-end">Delete</button>
                             </div>
                         </div>
                     </div>

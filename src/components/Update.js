@@ -32,17 +32,18 @@ export default class Update extends Component{
     submitHandler(e){
         e.preventDefault();
         const data = {
-            name: this.name.current.value,
-            email: this.email.current.value,
-            mobile: this.mobile.current.value,
-            course: this.course.current.value
+            name: this.state.name,
+            email: this.state.email,
+            mobile: this.state.mobile,
+            course: this.state.course
         };
         console.log("updated ", data);
         // store the data
-        const res = this.props.userAPI.update(data);
-        res.then(res =>{
-            alert("Successfully updated");
-            window.location.href = "/";
+        const output = this.props.userAPI.update(this.state.id,data);
+        output.then(res =>{
+            alert("Update successfull");
+            // window.location.href = "/";
+            this.props.history.push("/"); // using the push stack method that already exists in router
         }).catch(err => console.log(err));
     }
 
@@ -62,19 +63,19 @@ export default class Update extends Component{
                                 <form onSubmit={this.submitHandler}>
                                     <div className="form-group">
                                         <label htmlFor="name">Name</label>
-                                        <input type="text" name="name" id="name" className="form-control" value={name} required />
+                                        <input type="text" name="name" id="name" className="form-control" value={name} onChange={(e) => this.setState({name: e.target.value})} required />
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="email">Email</label>
-                                        <input type="text" name="email" id="email" className="form-control" value={email} required />
+                                        <input type="text" name="email" id="email" className="form-control" value={email} onChange={(e) => this.setState({email: e.target.value})} required />
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="name">Mobile</label>
-                                        <input type="text" name="mobile" id="mobile" className="form-control" value={mobile} required />
+                                        <input type="text" name="mobile" id="mobile" className="form-control" value={mobile} onChange={(e) => this.setState({mobile: e.target.value})} required />
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="name">Course</label>
-                                        <input type="text" name="course" id="course" className="form-control" value={course} required />
+                                        <input type="text" name="course" id="course" className="form-control" value={course} onChange={(e) => this.setState({course: e.target.value})} required />
                                     </div>
                                     <div className="form-group">
                                         <input type="submit" value="Update" className="btn btn-success" />
